@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  background-color: darkcyan;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 2px;
+  cursor: pointer;
+}
+
+#myCanvas {
+  background-color: lightgray;
+}
+
+#visuals {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  gap: 30px;
+  flex: 2;
+}
+#graph,
+#chart {
+  background-color: lightgray;
+}
+
+#results {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
