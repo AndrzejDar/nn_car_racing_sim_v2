@@ -30,32 +30,61 @@ export class Sensor {
     }
   }
 
-  setBase(rayCount: number, rayLength: number, raySpreadDivider: number) {
-    this.rayCount = rayCount;
-    this.rayLength = rayLength;
-    this.raySpreadDivider = raySpreadDivider;
+  setBase(base: setBaseModel) {
+    // setBase(rayCount: number, rayLength: number, raySpreadDivider: number, raySpread: number) {
+    this.rayCount = base.rayCount;
+    this.rayLength = base.rayLength;
+    this.raySpreadDivider = base.raySpreadDivider;
+    this.raySpread = base.raySpread;
   }
 
-  mutate(other: Sensor, mutationChance = 0.05) {
-    if (randWholeNumInRange(0, 1) == 1) this.rayCount = other.rayCount;
-    if (randWholeNumInRange(0, 1) == 1) this.rayLength = other.rayLength;
-    if (randWholeNumInRange(0, 1) == 1) this.raySpreadDivider = other.raySpreadDivider;
+  // mutate(other: Sensor, mutationChance = 0.05) {
+  //   if (randWholeNumInRange(0, 1) == 1) this.rayCount = other.rayCount;
+  //   if (randWholeNumInRange(0, 1) == 1) this.rayLength = other.rayLength;
+  //   if (randWholeNumInRange(0, 1) == 1) this.raySpreadDivider = other.raySpreadDivider;
+
+  //   //Random mutation
+  //   if (Math.random() < mutationChance) {
+  //     if (randWholeNumInRange(0, 1) == 1) this.rayCount++;
+  //     else this.rayCount = Math.max(1, this.rayCount - 1);
+  //   }
+  //   if (Math.random() < mutationChance) {
+  //     if (randWholeNumInRange(0, 1) == 1) this.rayLength += 10;
+  //     else this.rayLength -= 10;
+  //   }
+  //   if (Math.random() < mutationChance) {
+  //     if (randWholeNumInRange(0, 1) == 1) this.raySpreadDivider = Math.min(this.raySpreadDivider + 0.1, 8);
+  //     else this.raySpreadDivider = Math.max(this.raySpreadDivider - 0.1, 1);
+  //   }
+
+  //   this.raySpread = (Math.PI * 2) / this.raySpreadDivider;
+  // }
+
+  static geneticMutation(parentA: Sensor, parentB: Sensor, mutationChance: number = 0.05): setBaseModel {
+    let rayCount = parentA.rayCount;
+    let rayLength = parentA.rayLength;
+    let raySpreadDivider = parentA.raySpreadDivider;
+    if (randWholeNumInRange(0, 1) == 1) rayCount = parentB.rayCount;
+    if (randWholeNumInRange(0, 1) == 1) rayLength = parentB.rayLength;
+    if (randWholeNumInRange(0, 1) == 1) raySpreadDivider = parentB.raySpreadDivider;
 
     //Random mutation
     if (Math.random() < mutationChance) {
-      if (randWholeNumInRange(0, 1) == 1) this.rayCount++;
-      else this.rayCount = Math.max(1, this.rayCount - 1);
+      if (randWholeNumInRange(0, 1) == 1) rayCount++;
+      else rayCount = Math.max(1, rayCount - 1);
     }
     if (Math.random() < mutationChance) {
-      if (randWholeNumInRange(0, 1) == 1) this.rayLength += 10;
-      else this.rayLength -= 10;
+      if (randWholeNumInRange(0, 1) == 1) rayLength += 10;
+      else rayLength -= 10;
     }
     if (Math.random() < mutationChance) {
-      if (randWholeNumInRange(0, 1) == 1) this.raySpreadDivider = Math.min(this.raySpreadDivider + 0.1, 8);
-      else this.raySpreadDivider = Math.max(this.raySpreadDivider - 0.1, 1);
+      if (randWholeNumInRange(0, 1) == 1) raySpreadDivider = Math.min(raySpreadDivider + 0.1, 8);
+      else raySpreadDivider = Math.max(raySpreadDivider - 0.1, 1);
     }
 
-    this.raySpread = (Math.PI * 2) / this.raySpreadDivider;
+    const raySpread = (Math.PI * 2) / raySpreadDivider;
+
+    return { rayCount, rayLength, raySpreadDivider, raySpread };
   }
 
   #getReading(ray: Line, roadBorders: Line[], traffic: Car[]): Touch | null {
@@ -141,4 +170,11 @@ export class Sensor {
       ctx.stroke();
     }
   }
+}
+
+export interface setBaseModel {
+  rayCount: number;
+  rayLength: number;
+  raySpreadDivider: number;
+  raySpread: number;
 }

@@ -39,7 +39,7 @@ export function polysIntersect(poly1, poly2) {
   return false;
 }
 
-export function activation(val) {
+export function activation(val: number) {
   if (val < -1) return -1;
   if (val > 1) return 1;
   return val;
@@ -50,7 +50,7 @@ export function randomDistribution() {
     v = 0;
   while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)
   while (v === 0) v = Math.random();
-  let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+  const num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
   // console.log(num);
   return num;
   // num = num / 10.0 + 0.5; // Translate to 0 -> 1
@@ -59,7 +59,7 @@ export function randomDistribution() {
   // return num * 4 - 2;
 }
 
-export function randWholeNumInRange(min, max) {
+export function randWholeNumInRange(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 

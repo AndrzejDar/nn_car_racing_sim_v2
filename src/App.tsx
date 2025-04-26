@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./App.css";
-import { initialize, start } from "./ts/main";
+import { initialize, start, stop } from "./ts/main";
 
 function App() {
   // useEffect(() => {
@@ -19,8 +19,8 @@ function App() {
       <div className="w-full h-full bg-gray-400 overflow-hidden">
         <div id="buttons">
           <button onClick={start}>start</button>
-          {/* <button onClick={stop}>stop</button>
-          <button onClick={kill}>kill remaining</button>
+          <button onClick={stop}>stop</button>
+          {/* <button onClick={kill}>kill remaining</button>
           <button onClick={reset}>reset</button>
           <button onClick={save}>save car for seeding next gen</button>
           <button onClick="remove()">remove</button>

@@ -1,4 +1,5 @@
 import { Controls } from "./controls";
+import { road } from "./main";
 import { NeuralNetwork } from "./neuralNetwork";
 import { Sensor } from "./sensor";
 import { Line, CAR_CONTROL_TYPE } from "./types";
@@ -170,5 +171,23 @@ export class Car {
     if (this.sensor && drawSensors) {
       this.sensor.draw(ctx);
     }
+  }
+
+  static createAiOffspring(parentA: Car, parentB: Car) {
+    if (road === null) {
+      console.log("road not found");
+      return;
+    }
+
+    const offspring = new Car(road.getLaneCenter(2), 0, 30, 50, CAR_CONTROL_TYPE.AI);
+    if (!parentA.sensor || !parentB.sensor) {
+      console.log("parent missing sensor");
+      return;
+    }
+    const newSensorParms = Sensor.geneticMutation(parentA.sensor, parentB.sensor);
+    if (Array.isArray(newSensorParms)) {
+      offspring.sensor?.setBase(newSensorParms);
+    }
+    return offspring;
   }
 }

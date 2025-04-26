@@ -13,7 +13,7 @@ const mutationChance = 0.5;
 
 let canvas: null | HTMLCanvasElement = null;
 let ctx: CanvasRenderingContext2D | null = null;
-let graphCtx = null;
+let graphCtx: CanvasRenderingContext2D | null = null;
 let graphContainer: HTMLElement | null = null;
 export let road: Road | null = null;
 let cars: Car[] = [];
@@ -81,7 +81,7 @@ export function start() {
   isSimulating = true;
   animate();
 }
-function stop() {
+export function stop() {
   isSimulating = false;
 }
 function kill() {
