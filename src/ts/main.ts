@@ -1,6 +1,7 @@
+import { ChartContainer } from "@/components/ui/chart";
 import { Car } from "./car";
 import { DeathLine } from "./deathLine";
-import { drawResultsChart, drawVisuals } from "./graph";
+import { drawResultsChart, drawResultsChartv2, drawVisuals } from "./graph";
 import { NeuralNetwork } from "./neuralNetwork";
 import { Road } from "./road";
 import { generateTraffic } from "./traffic";
@@ -35,7 +36,7 @@ let drawNth = 1;
 let deathLine: DeathLine | null = null;
 
 export function initialize() {
-  canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
+  canvas = document.getElementById("simulationCanvas") as HTMLCanvasElement;
   canvas.width = 270;
   ctx = canvas.getContext("2d");
   road = new Road(canvas.width / 2, canvas.width * 0.9, lanes);
@@ -53,17 +54,19 @@ export function initialize() {
     mutateCars(carsToReproduce);
   }
 
-  animate();
   // printPrevResuts();
-
   graphContainer = document.getElementById("visuals");
   const graphCanvas = document.getElementById("graph") as HTMLCanvasElement;
   if (graphCanvas && graphContainer) {
-    graphCanvas.width = graphContainer.clientWidth;
-    graphCanvas.height = (graphContainer.clientHeight - 30) / 2;
+    // console.log(graphCanvas.clientWidth, graphCanvas.clientHeight);
+    graphCanvas.width = Math.floor(graphContainer.clientWidth * 1);
+    graphCanvas.height = Math.floor(graphContainer.clientHeight * 1);
     graphCtx = graphCanvas.getContext("2d");
-    drawResultsChart(prevResults, graphContainer);
   }
+
+  drawResultsChartv2(prevResults);
+
+  animate();
 }
 
 function save() {
@@ -269,6 +272,7 @@ function drawSim() {
     // cars[0].draw(ctx, "purple", false);
 
     ctx.restore();
+
     drawVisuals(graphCtx, graphContainer, bestCar.brain);
   }
 }
